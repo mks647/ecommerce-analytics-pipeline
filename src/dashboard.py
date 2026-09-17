@@ -159,8 +159,8 @@ st.sidebar.header("Dashboard Controls")
 data_source = st.sidebar.radio(
     "Choose Data Source",
     [
-        "Demo Database",
-        "Upload My Data"
+        "Upload My Data",
+        "Demo Database"
     ]
 )
 
