@@ -67,31 +67,9 @@ def get_connection():
 
 @st.cache_data
 def load_demo_data():
-    connection = get_connection()
+    demo_file = "data/processed/cleaned_transactions.csv"
 
-    query = """
-    SELECT
-        order_id,
-        customer_id,
-        product_id,
-        order_date,
-        quantity,
-        unit_price,
-        unit_cost,
-        category,
-        region
-    FROM transactions
-    """
-
-    cursor = connection.cursor(dictionary=True)
-    cursor.execute(query)
-
-    rows = cursor.fetchall()
-
-    cursor.close()
-    connection.close()
-
-    return pd.DataFrame(rows)
+    return pd.read_csv(demo_file)
 
 
 # --------------------------------------------------
@@ -155,6 +133,25 @@ def clean_client_data(dataframe):
 # --------------------------------------------------
 
 st.sidebar.header("Dashboard Controls")
+sample_file_path = "sample_data/client_sample.csv"
+
+try:
+    with open(
+        sample_file_path,
+        "rb"
+    ) as sample_file:
+
+        st.sidebar.download_button(
+            label="Download Sample CSV",
+            data=sample_file,
+            file_name="client_sample.csv",
+            mime="text/csv"
+        )
+
+except FileNotFoundError:
+    st.sidebar.warning(
+        "Sample CSV template is currently unavailable."
+    )
 
 data_source = st.sidebar.radio(
     "Choose Data Source",
