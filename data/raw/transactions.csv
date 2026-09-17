@@ -1,0 +1,7 @@
+order_id,customer_id,product_id,order_date,quantity,unit_price,unit_cost,category,region
+ORD001,CUST001,PROD101,2026-01-05,2,1200,800,Electronics,East
+ORD002,CUST002,PROD102,2026-01-05,1,750,450,Fashion,North
+ORD003,CUST001,PROD103,2026-01-06,3,500,300,Home,East
+ORD004,CUST003,PROD101,2026-01-07,1,1200,800,Electronics,West
+ORD005,CUST004,PROD104,2026-01-07,2,900,550,Fashion,South
+ORD006,CUST002,PROD105,2026-01-08,4,350,200,Home,North
