@@ -1,0 +1,6 @@
+order_id,customer_id,product_id,order_date,quantity,unit_price,unit_cost,category,region
+ORD001,CUST001,PROD001,2026-01-01,2,1000,600,Tiles,East
+ORD002,CUST002,PROD002,2026-01-02,0,1200,700,Tiles,West
+ORD003,CUST003,PROD003,2026-01-03,2,0,500,Tiles,North
+ORD004,CUST004,PROD004,2026-01-04,3,1500,-100,Tiles,South
+ORD005,CUST005,PROD005,2026-01-05,1,2000,1200,Tiles,East

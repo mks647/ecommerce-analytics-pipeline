@@ -1,0 +1,3 @@
+order_id,customer_id,product_id,order_date,quantity
+ORD001,CUST001,PROD001,2026-01-01,2
+ORD002,CUST002,PROD002,2026-01-02,1
