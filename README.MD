@@ -1,112 +1,271 @@
-# E-Commerce Analytics Pipeline
+# E-Commerce Analytics Pipeline & Business Dashboard
 
-An end-to-end data engineering and analytics project that generates, cleans, validates, transforms, and loads 50,000 synthetic e-commerce transaction records into MySQL for business analytics.
-## Project Objective
+An end-to-end data analytics solution that transforms raw transaction data into validated business insights through an interactive web dashboard.
 
-The goal of this project is to build a reproducible ETL pipeline for e-commerce transaction data and generate insights related to revenue, profit, customers, products, and regional performance.
-## Tech Stack
+The application allows users to explore demo business data or upload their own CSV file to automatically generate sales, revenue, profit, customer, product, category, regional, and monthly analytics.
+
+---
+
+## Live Demo
+
+Try the application here:
+
+**LIVE_DEMO_URL_HERE**
+
+No local installation is required to test the deployed dashboard.
+
+---
+
+## What This Project Does
+
+The solution provides an end-to-end analytics workflow:
+
+Raw Transaction Data  
+→ Data Validation  
+→ Data Cleaning  
+→ Business Metric Calculation  
+→ Analytics Processing  
+→ Interactive Dashboard
+
+The project includes Python-based ETL processing, MySQL database integration, SQL analytics, data-quality validation, and a Streamlit web dashboard.
+
+---
+
+## Client Testing
+
+A client can test the dashboard without installing Python or MySQL.
+
+### Option 1: Demo Data
+
+Select:
+
+`Demo Database`
+
+The application loads the prepared demo transaction dataset and generates the complete analytics dashboard.
+
+### Option 2: Upload Your Own Data
+
+Select:
+
+`Upload My Data`
+
+Then:
+
+1. Click **Download Sample CSV**.
+2. Review the required data format.
+3. Replace the sample rows with your own business transaction data.
+4. Upload the CSV file.
+5. The application validates and cleans the uploaded records.
+6. The dashboard automatically generates business analytics.
+
+Uploaded CSV test data is processed for dashboard analysis and is not automatically written to the project MySQL database.
+
+---
+
+## Required CSV Format
+
+The uploaded CSV must contain these columns:
+
+| Column | Description |
+|---|---|
+| `order_id` | Unique transaction/order identifier |
+| `customer_id` | Customer identifier |
+| `product_id` | Product identifier |
+| `order_date` | Transaction date |
+| `quantity` | Number of units sold |
+| `unit_price` | Selling price per unit |
+| `unit_cost` | Cost per unit |
+| `category` | Product category |
+| `region` | Sales region |
+
+A ready-to-use template is available inside:
+
+`sample_data/client_sample.csv`
+
+---
+
+## Dashboard Analytics
+
+The dashboard provides:
+
+- Total Revenue
+- Total Profit
+- Overall Profit Margin
+- Total Orders
+- Total Customers
+- Revenue by Category
+- Profit by Region
+- Monthly Revenue Trend
+- Customer Lifetime Value analysis
+- Top Customers by Revenue
+- Product Profitability
+- Product Profit Margins
+- Transaction Data Preview
+- Category and Region Filters
+
+---
+
+## Data Validation
+
+Uploaded transaction data is validated before analytics are generated.
+
+The pipeline handles:
+
+- Duplicate records
+- Missing critical values
+- Invalid dates
+- Invalid numeric values
+- Zero or negative quantities
+- Zero or negative selling prices
+- Negative unit costs
+
+Invalid records are removed from the analytics dataset according to the validation rules.
+
+---
+
+## Dataset
+
+The project starts with 50,000 synthetic e-commerce transactions.
+
+Controlled data-quality test records were introduced to test ETL validation.
+
+Pipeline results:
+
+- Base synthetic transactions: 50,000
+- Raw records after controlled test cases: 50,002
+- Duplicate records detected: 2
+- Invalid transaction records detected: 3
+- Missing-critical records detected: 2
+- Records removed: 7
+- Final cleaned records: 49,995
+- Raw-to-clean record retention: approximately 99.99%
+
+These are project test metrics generated from the synthetic dataset.
+
+---
+
+## Business Metrics
+
+Revenue:
+
+`Revenue = Quantity × Unit Price`
+
+Total Cost:
+
+`Total Cost = Quantity × Unit Cost`
+
+Profit:
+
+`Profit = Revenue - Total Cost`
+
+Profit Margin:
+
+`Profit Margin (%) = (Profit / Revenue) × 100`
+
+Customer analytics aggregate historical orders, revenue, and profit by customer.
+
+---
+
+## Technology Stack
 
 - Python
 - Pandas
 - NumPy
 - MySQL
-- MySQL Workbench
-- python-dotenv
+- SQL
+- Streamlit
+- Git
+- GitHub
+- Streamlit Community Cloud
 
-## ETL Workflow
-
-1. Generate 50,000 synthetic e-commerce transactions.
-2. Extract transaction data using Pandas.
-3. Validate missing, duplicate, and invalid records.
-4. Clean and transform the dataset.
-5. Calculate revenue, cost, profit, and profit margins.
-6. Generate customer and product-level aggregations.
-7. Load cleaned transaction data into MySQL.
-8. Validate database records using SQL.
-9. Perform customer, product, regional, and monthly analytics.
-10. Optimize analytical queries using database indexes.
-
-## Dataset
-
-The project uses a reproducible synthetic e-commerce dataset containing:
-
-- 50,000 transactions
-- 5,000 unique customers
-- 500 unique products
-- 5 product categories
-- 4 sales regions
-- Transaction data covering the year 2025
+---
 
 ## Project Structure
 
+```text
 ecommerce-analytics-pipeline/
+│
 ├── data/
 │   ├── raw/
 │   └── processed/
-├── notebooks/
+│
+├── sample_data/
+│   └── client_sample.csv
+│
 ├── sql/
 │   ├── schema.sql
 │   ├── analytics_queries.sql
+│   ├── data_quality.sql
 │   └── performance_test.sql
+│
 ├── src/
 │   ├── generate_data.py
 │   ├── extract.py
-│   └── db_connection.py
+│   ├── db_connection.py
+│   └── dashboard.py
+│
 ├── .gitignore
-├── requirements.txt
-└── README.md
+├── README.MD
+└── requirements.txt
+```
 
-## Database Design
+---
 
-The MySQL database separates core entities into customer, product, and transaction tables.
+## ETL Pipeline
 
-- `customers` stores unique customer identifiers.
-- `products` stores unique product identifiers.
-- `transactions` stores transactional information.
-- Foreign keys connect transactions with customers and products.
-customers ──┐
-            ├── transactions
-products ───┘
+### 1. Extract
 
-## Calculated Metrics
+Transaction data is loaded from the raw CSV dataset.
 
-The ETL and analytics workflow calculates:
+### 2. Validate
+
+The pipeline checks data types, missing critical values, duplicate records, and invalid transaction values.
+
+### 3. Transform
+
+The pipeline calculates:
 
 - Revenue
 - Total Cost
 - Profit
 - Profit Margin
-- Customer Lifetime Revenue and Profit
-- Product Revenue and Profit
-- Regional Performance
-- Monthly Revenue and Profit Trends
+- Customer-level analytics
+- Product-level analytics
 
-## SQL Analytics
+### 4. Load
 
-The project includes SQL queries for:
+Validated transaction records can be loaded into the relational MySQL database.
 
-- Overall revenue and profit
-- Top customers by revenue
-- Top products by revenue and profit
-- Product profit margins
-- Revenue by category
-- Profit by region
-- Monthly business trends
-- Data quality validation
-- Query execution analysis using `EXPLAIN ANALYZE`
+### 5. Analyze
 
-## Security
+SQL queries provide customer, product, category, regional, profitability, and time-based analysis.
 
-Database credentials are stored in environment variables using a `.env` file and loaded with `python-dotenv`.
+### 6. Visualize
 
-The `.env` file and virtual environment are excluded from version control using `.gitignore`.
+The Streamlit dashboard converts the processed data into interactive business analytics.
 
-## Installation
+---
 
-Clone the repository and navigate to the project directory:
+## Database Design
+
+The MySQL implementation uses:
+
+- `customers`
+- `products`
+- `transactions`
+
+Primary and foreign-key relationships maintain relational integrity.
+
+SQL indexing and `EXPLAIN ANALYZE` are used for query-performance testing.
+
+---
+
+## Local Installation
+
+Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/mks647/ecommerce-analytics-pipeline.git
 cd ecommerce-analytics-pipeline
 ```
 
@@ -116,72 +275,99 @@ Create a virtual environment:
 python -m venv .venv
 ```
 
-Activate it on Windows:
-
-```bash
-.venv\Scripts\activate
-```
-
-Install the required dependencies:
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
+
+---
+
 ## Environment Configuration
 
-Create a `.env` file in the project root directory:
+Create a local `.env` file:
 
-```env
+```text
 DB_HOST=localhost
-DB_USER=root
+DB_USER=your_mysql_user
 DB_PASSWORD=your_mysql_password
 DB_NAME=ecommerce_analytics
 ```
 
-Never commit the `.env` file to version control.
-## Database Setup
+The `.env` file is excluded from Git version control and should never be committed to the public repository.
 
-Create the MySQL database:
+---
 
-```sql
-CREATE DATABASE ecommerce_analytics;
-USE ecommerce_analytics;
-```
+## Run the ETL Pipeline
 
-Run the SQL schema provided in:
-
-```text
-sql/schema.sql
-```
-## Running the Pipeline
-
-Generate the synthetic dataset:
+Generate synthetic data:
 
 ```bash
 python src/generate_data.py
 ```
 
-Run the ETL process:
+Run data cleaning and transformation:
 
 ```bash
 python src/extract.py
 ```
 
-Load the processed data into MySQL:
+Load validated data into MySQL:
 
 ```bash
 python src/db_connection.py
 ```
-## Running the Analytics
 
-After loading the data into MySQL, run the queries available in:
+---
 
-```text
-sql/analytics_queries.sql
+## Run the Dashboard Locally
+
+```bash
+streamlit run src/dashboard.py
 ```
 
-Query execution plans and performance tests are available in:
+Then open the local Streamlit address shown in the terminal.
 
-```text
-sql/performance_test.sql
-```
+---
+
+## Deployment
+
+The client-facing dashboard is deployed as a web application.
+
+Users can access the application through the live demo URL without installing the development environment.
+
+For client demonstrations, the application supports CSV-based testing directly through the browser.
+
+---
+
+## Client Customization
+
+The analytics solution can be adapted for different businesses by customizing:
+
+- Company branding
+- Business-specific KPIs
+- Product attributes
+- Sales fields
+- Inventory fields
+- Customer metrics
+- Regional reporting
+- Dashboard charts
+- Data-source integrations
+
+For example, the same analytics architecture can be adapted for retail, tiles, manufacturing, wholesale, or other transaction-based businesses.
+
+---
+
+## Security
+
+Sensitive database credentials are stored outside the Git repository using environment variables.
+
+Client test uploads are analyzed by the dashboard and are not automatically inserted into the project MySQL database.
+
+Production deployments should use client-specific authentication, database infrastructure, access controls, backup policies, and data-retention rules based on business requirements.
+
+---
+
+## Purpose
+
+This project demonstrates an end-to-end analytics workflow covering data generation, ETL, data-quality validation, relational database design, SQL analytics, performance testing, interactive visualization, client-data testing, and cloud deployment.
